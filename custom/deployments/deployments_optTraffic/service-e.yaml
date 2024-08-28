@@ -1,0 +1,248 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-e1
+  namespace: paper2
+  labels:
+    app: service-e
+    version: service-e1
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-e
+      version: service-e1
+
+  template:
+    metadata:
+      labels:
+        app: service-e
+        version: service-e1
+
+    spec:
+      containers:
+      - name: service-e
+        image: hokunpark/paper2:serviceE2
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 11004
+        command: ["uvicorn"]
+        args: ["main:app", "--host", "0.0.0.0", "--port", "11004"]
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker1
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-e2
+  namespace: paper2
+  labels:
+    app: service-e
+    version: service-e2
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-e
+      version: service-e2
+
+  template:
+    metadata:
+      labels:
+        app: service-e
+        version: service-e2
+
+    spec:
+      containers:
+      - name: service-e
+        image: hokunpark/paper2:serviceE2
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 11004
+        command: ["uvicorn"]
+        args: ["main:app", "--host", "0.0.0.0", "--port", "11004"]
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker1
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-e3
+  namespace: paper2
+  labels:
+    app: service-e
+    version: service-e3
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-e
+      version: service-e3
+
+  template:
+    metadata:
+      labels:
+        app: service-e
+        version: service-e3
+
+    spec:
+      containers:
+      - name: service-e
+        image: hokunpark/paper2:serviceE2
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 11004
+        command: ["uvicorn"]
+        args: ["main:app", "--host", "0.0.0.0", "--port", "11004"]
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker3
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-e4
+  namespace: paper2
+  labels:
+    app: service-e
+    version: service-e4
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-e
+      version: service-e4
+
+  template:
+    metadata:
+      labels:
+        app: service-e
+        version: service-e4
+
+    spec:
+      containers:
+      - name: service-e
+        image: hokunpark/paper2:serviceE2
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 11004
+        command: ["uvicorn"]
+        args: ["main:app", "--host", "0.0.0.0", "--port", "11004"]
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker3
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-e5
+  namespace: paper2
+  labels:
+    app: service-e
+    version: service-e5
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-e
+      version: service-e5
+
+  template:
+    metadata:
+      labels:
+        app: service-e
+        version: service-e5
+
+    spec:
+      containers:
+      - name: service-e
+        image: hokunpark/paper2:serviceE2
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 11004
+        command: ["uvicorn"]
+        args: ["main:app", "--host", "0.0.0.0", "--port", "11004"]
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker4
+

@@ -1,0 +1,233 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-1
+  namespace: bookinfo
+  labels:
+    app: ratings
+    version: ratings-1
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: ratings-1
+
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: ratings-1
+    spec:
+      serviceAccountName: bookinfo-ratings
+      containers:
+      - name: ratings
+        image: docker.io/istio/examples-bookinfo-ratings-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker1
+                
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-2
+  namespace: bookinfo
+  labels:
+    app: ratings
+    version: ratings-2
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: ratings-2
+
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: ratings-2
+    spec:
+      serviceAccountName: bookinfo-ratings
+      containers:
+      - name: ratings
+        image: docker.io/istio/examples-bookinfo-ratings-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-3
+  namespace: bookinfo
+  labels:
+    app: ratings
+    version: ratings-3
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: ratings-3
+
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: ratings-3
+    spec:
+      serviceAccountName: bookinfo-ratings
+      containers:
+      - name: ratings
+        image: docker.io/istio/examples-bookinfo-ratings-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker3
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-4
+  namespace: bookinfo
+  labels:
+    app: ratings
+    version: ratings-4
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: ratings-4
+
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: ratings-4
+    spec:
+      serviceAccountName: bookinfo-ratings
+      containers:
+      - name: ratings
+        image: docker.io/istio/examples-bookinfo-ratings-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker4
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-5
+  namespace: bookinfo
+  labels:
+    app: ratings
+    version: ratings-5
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: ratings-5
+
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: ratings-5
+    spec:
+      serviceAccountName: bookinfo-ratings
+      containers:
+      - name: ratings
+        image: docker.io/istio/examples-bookinfo-ratings-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker4
