@@ -8,13 +8,12 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y curl && \
     rm -rf /var/lib/apt/lists/* && \
-    pip install --no-cache-dir fastapi uvicorn requests aiohttp uvloop
+    pip install --no-cache-dir fastapi uvicorn requests aiohttp httpx[http2] uvloop httptools numpy
+
 
 # 애플리케이션 파일 복사
 COPY . .
 
 # 호스트와 컨테이너 간에 포트 매핑
-EXPOSE 11000
-
-# FastAPI 애플리케이션 실행
+EXPOSE 11001
 
