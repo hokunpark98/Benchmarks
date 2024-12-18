@@ -10,7 +10,7 @@ semaphore = asyncio.Semaphore(50000)
 
 def cpu_intensive_task():
     # 대규모 행렬 연산을 통한 CPU 부하
-    size = 120
+    size = 110
     A = np.ones((size, size), dtype=float)
     B = np.ones((size, size), dtype=float)
     for _ in range(10):
@@ -30,7 +30,7 @@ async def process_request(request_data: dict):
         }
 
 @app.post("/e")
-async def c_endpoint(request: Request):
+async def e_endpoint(request: Request):
     try:
         request_data = await request.json()
     except Exception:

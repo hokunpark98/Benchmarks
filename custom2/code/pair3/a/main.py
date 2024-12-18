@@ -12,7 +12,7 @@ semaphore = asyncio.Semaphore(50000)
 # 전역 클라이언트 (커넥션 풀 재사용)
 client = httpx.AsyncClient(http2=True, limits=httpx.Limits(max_keepalive_connections=1000, max_connections=2000))
 
-TEN_KB_DATA = "X" * (10 * 1024)  # 10KB 데이터 생성
+TEN_KB_DATA = "X" * (100 * 1024)  # 100KB 데이터 생성
 
 async def fetch_value(new_value: int):
     async with semaphore:

@@ -1,48 +1,60 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 import uvicorn
 import httpx
 import asyncio
 import numpy as np
-import math
 
 app = FastAPI()
+
 semaphore = asyncio.Semaphore(50000)
 client = httpx.AsyncClient(http2=True, limits=httpx.Limits(max_keepalive_connections=1000, max_connections=2000))
-TEN_KB_DATA = "X" * (30 * 1024)
+
+FIFTY_KB_DATA = "X" * (30 * 1024)
 
 def cpu_intensive_task():
     # 대규모 행렬 연산을 통한 CPU 부하
-    size = 30
+    size = 70
     A = np.ones((size, size), dtype=float)
     B = np.ones((size, size), dtype=float)
     for _ in range(10):
         A = A.dot(B)
     return float(np.sum(A))
 
-async def fetch_value(value: int):
+async def call_service_e(value: int):
     async with semaphore:
+        # CPU 연산 수행
         cpu_result = cpu_intensive_task()
         new_value = value + 1
         data_to_send = {
             "value": new_value,
-            "data": TEN_KB_DATA,
+            "data": FIFTY_KB_DATA,
             "cpu_result": cpu_result,
         }
+        # b -> c로 POST 요청
         response = await client.post("http://servicee:11004/e", json=data_to_send)
         response.raise_for_status()
         return response.json()
 
-@app.get("/b")
-async def b(value: int):
+@app.post("/d")
+async def d_endpoint(request: Request):
     try:
-        result = await fetch_value(value)
-        return result
+        request_data = await request.json()
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid JSON data")
+
+    # a로부터 받은 데이터
+    value = request_data.get("value", 0)
+    input_data = request_data.get("data", "")  # 10KB 데이터
+
+    # c 서비스 호출
+    try:
+        result_from_d = await call_service_e(value)
+        return result_from_d
     except httpx.HTTPStatusError as exc:
         raise HTTPException(status_code=exc.response.status_code, detail=str(exc))
     except httpx.RequestError as exc:
         raise HTTPException(status_code=500, detail=str(exc))
 
 if __name__ == "__main__":
-    # CPU 바운드 태스크가 있기 때문에 workers=1로 유지하는 것도 전략일 수 있음
-    # Kubernetes에서 replica를 늘려 CPU를 분산할 예정
+    # CPU 바운드 작업 때문에 단일 worker 유지 가능
     uvicorn.run(app, host="0.0.0.0", port=11003, workers=1)

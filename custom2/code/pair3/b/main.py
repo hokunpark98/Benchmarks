@@ -9,7 +9,7 @@ app = FastAPI()
 semaphore = asyncio.Semaphore(50000)
 client = httpx.AsyncClient(http2=True, limits=httpx.Limits(max_keepalive_connections=1000, max_connections=2000))
 
-FIFTY_KB_DATA = "X" * (50 * 1024)
+FIFTY_KB_DATA = "X" * (500 * 1024)
 
 def cpu_intensive_task():
     # 대규모 행렬 연산을 통한 CPU 부하
