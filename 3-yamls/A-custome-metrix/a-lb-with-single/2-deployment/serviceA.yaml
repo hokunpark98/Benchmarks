@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb1
+  namespace: heart
+  labels:
+    app: lb
+    version: lb1
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb
+      version: lb1
+
+  template:
+    metadata:
+      labels:
+        app: lb
+        version: lb1
+
+    spec:
+      containers:
+        - name: lb
+          image: hokunpark/custom-metrix-lb-with-single:lb
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "5000m"
+              memory: "1000Mi"
+            limits:
+              cpu: "5000m"
+              memory: "1000Mi"
+          ports:
+            - containerPort: 11000
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11000",
+              "--workers",
+              "4",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker1

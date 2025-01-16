@@ -1,0 +1,565 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced1
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced1
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced1
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced1
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced2
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced2
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced2
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced2
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced3
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced3
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced3
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced3
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker3
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced4
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced4
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced4
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced4
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker4
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced5
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced5
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced5
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced5
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker5
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced6
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced6
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced6
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced6
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced7
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced7
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced7
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced7
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced8
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced8
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced8
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced8
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker3
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviced9
+  namespace: pair
+  labels:
+    app: serviced
+    version: serviced9
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serviced
+      version: serviced9
+
+  template:
+    metadata:
+      labels:
+        app: serviced
+        version: serviced9
+
+    spec:
+      containers:
+        - name: serviced
+          image: hokunpark/custom2:serviceD
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "500Mi"
+            limits:
+              cpu: "300m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11003
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11003",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker5

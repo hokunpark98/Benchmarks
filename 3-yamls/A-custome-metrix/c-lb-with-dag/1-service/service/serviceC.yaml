@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicec
+  namespace: pair
+spec:
+  selector:
+    app: servicec
+  ports:
+    - name: http
+      port: 11002
+      targetPort: 11002
+  type: ClusterIP
+  sessionAffinity: None

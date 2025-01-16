@@ -1,0 +1,187 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicea1
+  namespace: pair
+  labels:
+    app: servicea
+    version: servicea1
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicea
+      version: servicea1
+
+  template:
+    metadata:
+      labels:
+        app: servicea
+        version: servicea1
+
+    spec:
+      containers:
+        - name: servicea
+          image: hokunpark/custom-metrix-lb-with-single:servicea
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "800m"
+              memory: "1000Mi"
+            limits:
+              cpu: "800m"
+              memory: "1000Mi"
+          ports:
+            - containerPort: 11001
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11001",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicea2
+  namespace: pair
+  labels:
+    app: servicea
+    version: servicea2
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicea
+      version: servicea2
+
+  template:
+    metadata:
+      labels:
+        app: servicea
+        version: servicea2
+
+    spec:
+      containers:
+        - name: servicea
+          image: hokunpark/custom-metrix-lb-with-single:servicea
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "800m"
+              memory: "1000Mi"
+            limits:
+              cpu: "800m"
+              memory: "1000Mi"
+          ports:
+            - containerPort: 11001
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11001",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker3
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicea3
+  namespace: pair
+  labels:
+    app: servicea
+    version: servicea3
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicea
+      version: servicea3
+
+  template:
+    metadata:
+      labels:
+        app: servicea
+        version: servicea3
+
+    spec:
+      containers:
+        - name: servicea
+          image: hokunpark/custom-metrix-lb-with-single:servicea
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "800m"
+              memory: "1000Mi"
+            limits:
+              cpu: "800m"
+              memory: "1000Mi"
+          ports:
+            - containerPort: 11001
+          command: ["uvicorn"]
+          args:
+            [
+              "main:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "11001",
+              "--workers",
+              "1",
+              "--loop",
+              "uvloop",
+              "--http",
+              "httptools",
+            ]
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker5
