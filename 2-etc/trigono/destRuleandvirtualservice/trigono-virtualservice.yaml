@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: trigono-vs
+  namespace: pair
+spec:
+  hosts:
+  - trigono
+  http:
+  - route:
+    - destination:
+        host: trigono
+        subset: "" 

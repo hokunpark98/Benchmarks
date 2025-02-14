@@ -1,0 +1,187 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details-1
+  namespace: bookinfo
+  labels:
+    app: details
+    version: details-1
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: details
+      version: details-1
+
+  template:
+    metadata:
+      labels:
+        app: details
+        version: details-1
+
+    spec:
+      serviceAccountName: bookinfo-details
+      containers:
+      - name: details
+        image: docker.io/istio/examples-bookinfo-details-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details-2
+  namespace: bookinfo
+  labels:
+    app: details
+    version: details-2
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: details
+      version: details-2
+    
+  template:
+    metadata:
+      labels:
+        app: details
+        version: details-2
+    spec:
+      serviceAccountName: bookinfo-details
+      containers:
+      - name: details
+        image: docker.io/istio/examples-bookinfo-details-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details-3
+  namespace: bookinfo
+  labels:
+    app: details
+    version: details-3
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: details
+      version: details-3
+    
+  template:
+    metadata:
+      labels:
+        app: details
+        version: details-3
+    spec:
+      serviceAccountName: bookinfo-details
+      containers:
+      - name: details
+        image: docker.io/istio/examples-bookinfo-details-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker3
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details-4
+  namespace: bookinfo
+  labels:
+    app: details
+    version: details-4
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: details
+      version: details-4
+    
+  template:
+    metadata:
+      labels:
+        app: details
+        version: details-4
+    spec:
+      serviceAccountName: bookinfo-details
+      containers:
+      - name: details
+        image: docker.io/istio/examples-bookinfo-details-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 9080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker4

@@ -1,0 +1,97 @@
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-pair-worker1
+  namespace: pair
+  labels:
+    app: frontend-pair
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-pair
+
+  template:
+    metadata:
+      labels:
+        app: frontend-pair
+    
+    spec:
+      containers:
+      - name: frontend-pair
+        image: hokunpark/frontend-pair:v1
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 12001
+        command: ["hypercorn"]
+        args: ["frontend:middle_app", "--bind", "0.0.0.0:12001"]
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker1
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-pair-worker2
+  namespace: pair
+  labels:
+    app: frontend-pair
+
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-pair
+
+  template:
+    metadata:
+      labels:
+        app: frontend-pair
+    
+    spec:
+      containers:
+      - name: frontend-pair
+        image: hokunpark/frontend-pair:v1
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "500Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"  
+        ports:
+        - containerPort: 12001
+        command: ["hypercorn"]
+        args: ["frontend:middle_app", "--bind", "0.0.0.0:12001"]
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - worker2
+
+

@@ -1,0 +1,226 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trigono-worker1-1
+  namespace: pair # 네임스페이스 지정
+
+spec:
+  replicas: 1 # 초기 파드 수
+  selector:
+    matchLabels:
+      app: trigono
+  template:
+    metadata:
+      labels:
+        app: trigono
+    spec:
+      containers:
+        - name: trigono
+          image: hokunpark/trigono:20
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "300m"
+            limits:
+              cpu: "300m"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trigono-worker2
+  namespace: pair # 네임스페이스 지정
+
+spec:
+  replicas: 1 # 초기 파드 수
+  selector:
+    matchLabels:
+      app: trigono
+  template:
+    metadata:
+      labels:
+        app: trigono
+    spec:
+      containers:
+        - name: trigono
+          image: hokunpark/trigono:20
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "300m"
+            limits:
+              cpu: "300m"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trigono-worker3-1
+  namespace: pair # 네임스페이스 지정
+
+spec:
+  replicas: 1 # 초기 파드 수
+  selector:
+    matchLabels:
+      app: trigono
+  template:
+    metadata:
+      labels:
+        app: trigono
+    spec:
+      containers:
+        - name: trigono
+          image: hokunpark/trigono:20
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "300m"
+            limits:
+              cpu: "300m"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker3
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trigono-worker4
+  namespace: pair # 네임스페이스 지정
+
+spec:
+  replicas: 1 # 초기 파드 수
+  selector:
+    matchLabels:
+      app: trigono
+  template:
+    metadata:
+      labels:
+        app: trigono
+    spec:
+      containers:
+        - name: trigono
+          image: hokunpark/trigono:20
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "300m"
+            limits:
+              cpu: "300m"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker4
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trigono-worker1-2
+  namespace: pair # 네임스페이스 지정
+
+spec:
+  replicas: 1 # 초기 파드 수
+  selector:
+    matchLabels:
+      app: trigono
+  template:
+    metadata:
+      labels:
+        app: trigono
+    spec:
+      containers:
+        - name: trigono
+          image: hokunpark/trigono:20
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "300m"
+            limits:
+              cpu: "300m"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trigono-worker3-2
+  namespace: pair # 네임스페이스 지정
+
+spec:
+  replicas: 1 # 초기 파드 수
+  selector:
+    matchLabels:
+      app: trigono
+  template:
+    metadata:
+      labels:
+        app: trigono
+    spec:
+      containers:
+        - name: trigono
+          image: hokunpark/trigono:20
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "300m"
+            limits:
+              cpu: "300m"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker3

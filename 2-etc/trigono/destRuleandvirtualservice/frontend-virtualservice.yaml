@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: frontend-pair-vs
+  namespace: pair
+spec:
+  hosts:
+  - frontend-pair
+  http:
+  - route:
+    - destination:
+        host: frontend-pair
+        subset: "" 
