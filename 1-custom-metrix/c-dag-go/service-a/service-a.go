@@ -18,11 +18,11 @@ type Payload struct {
 	Data  string `json:"data"`
 }
 
-var globalMatrixResult [150][150]float64
+var globalMatrixResult [50][50]float64
 
 // matrixMultiply: 200×200 행렬곱셈을 실제로 수행합니다.
 func matrixMultiply() {
-	const size = 150
+	const size = 50
 	var a, b, c [size][size]float64
 	for i := 0; i < size; i++ {
 		for j := 0; j < size; j++ {
@@ -44,7 +44,7 @@ func matrixMultiply() {
 
 // generate1KBData 생성: prefix를 반복하여 1KB 문자열을 만듭니다.
 func generate1KBData(prefix string) string {
-	return strings.Repeat(prefix, 1024)
+	return strings.Repeat(prefix, 50*1024)
 }
 
 // forwardRequest: 지정 URL로 POST 요청을 보내고 응답 payload를 반환합니다.

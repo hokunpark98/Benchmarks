@@ -18,10 +18,10 @@ type Payload struct {
 	Data  string `json:"data"`
 }
 
-var globalMatrixResult [130][130]float64
+var globalMatrixResult [100][100]float64
 
 func matrixMultiply() {
-	const size = 130
+	const size = 100
 	var a, b, c [size][size]float64
 	for i := 0; i < size; i++ {
 		for j := 0; j < size; j++ {
@@ -42,7 +42,7 @@ func matrixMultiply() {
 }
 
 func generate1KBData(prefix string) string {
-	return strings.Repeat(prefix, 1024)
+	return strings.Repeat(prefix, 30*1024)
 }
 
 func forwardRequest(url string, payload Payload) (Payload, error) {
