@@ -15,7 +15,7 @@ type Payload struct {
 	Data  string `json:"data"`
 }
 
-const matrixSize = 80
+const matrixSize = 130
 
 // 전역 변수에 행렬 곱셈 결과를 저장 (동시 요청 고려 시 동기화 필요)
 var globalMatrixResult [matrixSize][matrixSize]float64

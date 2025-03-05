@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookinfolb
+  namespace: heart
+  labels:
+    app: bookinfolb
+spec:
+  type: ClusterIP
+  selector:
+    app: bookinfolb
+  ports:
+  - port: 11000
+    targetPort: 11000
+    protocol: TCP

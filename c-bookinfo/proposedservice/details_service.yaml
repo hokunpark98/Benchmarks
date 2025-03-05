@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: details
+  namespace: heart
+  labels:
+    app: details
+    service: details
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: details
+  sessionAffinity: None  
+  clusterIP: None  
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-details
+  namespace: heart
+  labels:
+    account: details

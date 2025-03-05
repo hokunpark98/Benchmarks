@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: reviews
+  namespace: heart
+  labels:
+    app: reviews
+spec:
+  serviceName: reviews 
+  replicas: 2
+  selector:
+    matchLabels:
+      app: reviews
+
+  template:
+    metadata:
+      labels:
+        app: reviews
+  
+    spec:
+      serviceAccountName: bookinfo-reviews      
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: reviews         
+      containers:
+      - name: reviews
+        image: docker.io/istio/examples-bookinfo-reviews-v2:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 300m
+            memory: 300Mi
+          limits:
+            cpu: "300m"
+            memory: "300Mi"
+        env:
+        - name: LOG_DIR
+          value: "/tmp/logs"
+        ports:
+        - containerPort: 9080

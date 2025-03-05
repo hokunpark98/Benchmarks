@@ -15,7 +15,7 @@ type Payload struct {
 	Data  string `json:"data"`
 }
 
-const matrixSize = 80
+const matrixSize = 120
 
 // 전역 변수에 행렬 곱셈 결과를 저장 (동시 요청 고려 시 동기화 필요)
 var globalMatrixResult [matrixSize][matrixSize]float64
@@ -54,7 +54,7 @@ func generate1KBData(prefix string) string {
 
 func calHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Method Not Allowed in Service D", http.StatusMethodNotAllowed)
+		http.Error(w, "Method Not Allowed in Service E", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -70,7 +70,7 @@ func calHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error parsing JSON", http.StatusBadRequest)
 		return
 	}
-	log.Printf("Service D received: value=%d, data size=%d", payload.Value, len(payload.Data))
+	log.Printf("Service E received: value=%d, data size=%d", payload.Value, len(payload.Data))
 
 	// 실제 행렬 곱셈 수행
 	matrixMultiply()
@@ -78,10 +78,10 @@ func calHandler(w http.ResponseWriter, r *http.Request) {
 	// 최종 처리: value를 1 증가시키고 'D' 접두사를 사용한 1KB 문자열 생성
 	finalPayload := Payload{
 		Value: payload.Value + 1,
-		Data:  generate1KBData("D"),
+		Data:  generate1KBData("E"),
 	}
 
-	log.Printf("Service D final processing done. Final value: %d", finalPayload.Value)
+	log.Printf("Service E final processing done. Final value: %d", finalPayload.Value)
 
 	responseBytes, err := json.Marshal(finalPayload)
 	if err != nil {
@@ -95,9 +95,9 @@ func calHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "11004"
+		port = "11005"
 	}
 	http.HandleFunc("/cal", calHandler)
-	log.Printf("Service D is running on port %s", port)
+	log.Printf("Service E is running on port %s", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

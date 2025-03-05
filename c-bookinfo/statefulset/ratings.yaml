@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ratings
+  namespace: heart
+  labels:
+    app: ratings
+spec:
+  serviceName: ratings  #
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ratings
+
+  template:
+    metadata:
+      labels:
+        app: ratings
+  
+    spec:
+      serviceAccountName: bookinfo-ratings      
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: ratings         
+      containers:
+      - name: ratings
+        image: docker.io/istio/examples-bookinfo-ratings-v1:1.20.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "300m"
+            memory: "300Mi"
+          limits:
+            cpu: "300m"
+            memory: "300Mi"
+        ports:
+        - containerPort: 9080

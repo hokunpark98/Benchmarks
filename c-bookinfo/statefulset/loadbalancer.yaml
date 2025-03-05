@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bookinfolb
+  namespace: heart
+  labels:
+    app: bookinfolb
+spec:
+  serviceName: bookinfolb 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookinfolb
+  template:
+    metadata:
+      labels:
+        app: bookinfolb
+    spec:
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"    
+      containers:
+      - name: bookinfolb
+        image: hokunpark/bookinfo:loadbalancer
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 11000
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "1000Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1000Mi"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - younha
